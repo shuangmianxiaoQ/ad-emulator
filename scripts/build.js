@@ -4,6 +4,22 @@
 process.env.BABEL_ENV = 'production';
 process.env.NODE_ENV = 'production';
 
+process.env.GENERATE_SOURCEMAP = true;
+
+const { BUILD_ENV } = process.env;
+const projectName = require('../package.json').name;
+
+if (BUILD_ENV === 'test') {
+  process.env.PUBLIC_URL = `//static2.test.ximalaya.com/yx/${projectName}/last/dist/`;
+} else if (BUILD_ENV === 'uat') {
+  process.env.PUBLIC_URL = `//s1.uat.xmcdn.com/yx/${projectName}/last/dist/`;
+} else if (BUILD_ENV === 'prod') {
+  process.env.PUBLIC_URL = `//s1.xmcdn.com/yx/${projectName}/last/dist/`;
+  process.env.GENERATE_SOURCEMAP = false;
+} else {
+  process.env.PUBLIC_URL = '';
+}
+
 // Makes the script crash on unhandled rejections instead of silently
 // ignoring them. In the future, promise rejections that are not handled will
 // terminate the Node.js process with a non-zero exit code.

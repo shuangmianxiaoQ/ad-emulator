@@ -24,6 +24,7 @@ const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const postcssNormalize = require('postcss-normalize');
 
@@ -49,12 +50,14 @@ const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
+const lessRegex = /\.less$/;
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = function(webpackEnv) {
   const isEnvDevelopment = webpackEnv === 'development';
   const isEnvProduction = webpackEnv === 'production';
+  const isEnvAnalyze = process.env.BUILD_ENV === 'analyze';
 
   // Variable used for enabling profiling in Production
   // passed into alias object. Uses a flag if passed into the build command
@@ -68,7 +71,7 @@ module.exports = function(webpackEnv) {
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 
   // common function to get style loaders
-  const getStyleLoaders = (cssOptions, preProcessor) => {
+  const getStyleLoaders = (cssOptions, preProcessor, preOptions = {}) => {
     const loaders = [
       isEnvDevelopment && require.resolve('style-loader'),
       isEnvProduction && {
@@ -121,6 +124,7 @@ module.exports = function(webpackEnv) {
           loader: require.resolve(preProcessor),
           options: {
             sourceMap: true,
+            ... preOptions
           },
         }
       );
@@ -382,6 +386,15 @@ module.exports = function(webpackEnv) {
                       },
                     },
                   ],
+                  [
+                    require.resolve('babel-plugin-import'),
+                    {
+                      libraryName: "antd",
+                      libraryDirectory: "lib",
+                      style: true
+                    },
+                    "antd"
+                  ]
                 ],
                 // This is a feature of `babel-loader` for webpack (not Babel itself).
                 // It enables caching results in ./node_modules/.cache/babel-loader/
@@ -485,6 +498,28 @@ module.exports = function(webpackEnv) {
                 'sass-loader'
               ),
             },
+            // less-loader
+            {
+              test: lessRegex,
+              use: getStyleLoaders(
+                {
+                  importLoaders: 3,
+                  sourceMap: isEnvProduction && shouldUseSourceMap,
+                },
+                'less-loader',
+                {
+                  lessOptions: {
+                    modifyVars: {
+                      'primary-color': '#1DA57A',
+                      'link-color': '#1DA57A',
+                      'border-radius-base': '2px',
+                    },
+                    javascriptEnabled: true
+                  }
+                }
+              ),
+              sideEffects: true,
+            },
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
             // In production, they would get copied to the `build` folder.
@@ -555,6 +590,7 @@ module.exports = function(webpackEnv) {
       // during a production build.
       // Otherwise React will be compiled in the very slow development mode.
       new webpack.DefinePlugin(env.stringified),
+      isEnvAnalyze && new BundleAnalyzerPlugin(),
       // This is necessary to emit hot updates (currently CSS only):
       isEnvDevelopment && new webpack.HotModuleReplacementPlugin(),
       // Watcher doesn't work well if you mistype casing in a path so we use
