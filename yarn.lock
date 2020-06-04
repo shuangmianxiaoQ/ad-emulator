@@ -1139,7 +1139,7 @@
     globals "^11.1.0"
     lodash "^4.17.13"
 
-"@babel/types@^7.0.0", "@babel/types@^7.10.1", "@babel/types@^7.10.2", "@babel/types@^7.3.0", "@babel/types@^7.4.0", "@babel/types@^7.4.4", "@babel/types@^7.7.0", "@babel/types@^7.9.0":
+"@babel/types@^7.0.0", "@babel/types@^7.1.0", "@babel/types@^7.10.1", "@babel/types@^7.10.2", "@babel/types@^7.3.0", "@babel/types@^7.4.0", "@babel/types@^7.4.4", "@babel/types@^7.7.0", "@babel/types@^7.9.0":
   version "7.10.2"
   resolved "https://registry.npm.taobao.org/@babel/types/download/@babel/types-7.10.2.tgz?cache=0&sync_timestamp=1590868599196&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Ftypes%2Fdownload%2F%40babel%2Ftypes-7.10.2.tgz#30283be31cad0dbf6fb00bd40641ca0ea675172d"
   integrity sha1-MCg74xytDb9vsAvUBkHKDqZ1Fy0=
@@ -2527,6 +2527,15 @@ babel-plugin-named-asset-import@^0.3.6:
   version "0.3.6"
   resolved "https://registry.npm.taobao.org/babel-plugin-named-asset-import/download/babel-plugin-named-asset-import-0.3.6.tgz#c9750a1b38d85112c9e166bf3ef7c5dbc605f4be"
   integrity sha1-yXUKGzjYURLJ4Wa/PvfF28YF9L4=
+
+babel-plugin-recharts@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.npm.taobao.org/babel-plugin-recharts/download/babel-plugin-recharts-1.2.1.tgz#bfa8c723148cbafad0796abeb36f94f0ac397011"
+  integrity sha1-v6jHIxSMuvrQeWq+s2+U8Kw5cBE=
+  dependencies:
+    "@babel/traverse" "^7.1.0"
+    "@babel/types" "^7.1.0"
+    babylon "^6.18.0"
 
 babel-plugin-syntax-object-rest-spread@^6.8.0:
   version "6.13.0"

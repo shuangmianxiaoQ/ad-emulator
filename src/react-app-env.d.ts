@@ -2,6 +2,10 @@
 /// <reference types="react" />
 /// <reference types="react-dom" />
 
+declare interface Window {
+  Bideo: any;
+}
+
 declare namespace NodeJS {
   interface ProcessEnv {
     readonly NODE_ENV: 'development' | 'production' | 'test';
@@ -61,4 +65,9 @@ declare module '*.module.scss' {
 declare module '*.module.sass' {
   const classes: { readonly [key: string]: string };
   export default classes;
+}
+
+declare module '*.mp4' {
+  const src: string;
+  export default src;
 }
