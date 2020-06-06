@@ -1,6 +1,6 @@
 import React from 'react';
 import SearchForm from './SearchForm';
-import LineChart from './LineChart';
+import AreaChart from './AreaChart';
 import PieChart from './PieChart';
 import List from './List';
 
@@ -15,10 +15,18 @@ const Dashboard = () => {
         <div className={styles.header}>
           <span className={styles.iconMessage} />
         </div>
-        <SearchForm />
-        <LineChart />
-        <PieChart />
-        <List />
+        <div className={styles.searchForm}>
+          <SearchForm />
+        </div>
+        <div className={styles.areaChart}>
+          <AreaChart />
+        </div>
+        <div className={styles.list}>
+          <List />
+        </div>
+        <div className={styles.pieChart}>
+          <PieChart />
+        </div>
       </div>
     </div>
   );

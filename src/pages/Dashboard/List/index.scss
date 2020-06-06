@@ -1,0 +1,28 @@
+#table_list {
+  background-color: transparent;
+
+  .ant-table-thead > tr > th {
+    background-color: #383446;
+    border-bottom: none;
+    font-size: 16px;
+    color: #fff;
+
+    &:first-child {
+      border-radius: 12px 0 0 12px;
+    }
+
+    &:last-child {
+      border-radius: 0 12px 12px 0;
+    }
+  }
+
+  .ant-table-tbody > tr > td {
+    border-bottom: none;
+    font-size: 14px;
+    color: #fff;
+  }
+
+  .ant-table-placeholder:hover {
+    background: transparent;
+  }
+}
