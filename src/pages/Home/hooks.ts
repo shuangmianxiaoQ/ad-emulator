@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import videoSrc from '../../assets/video/video_bg.mp4';
 
 export const useBideo = () => {
   const [visible, setVisible] = useState(true);
@@ -17,7 +16,12 @@ export const useBideo = () => {
       // autoplay: false,
 
       // Array of objects containing the src and type of different video formats to add
-      src: [{ src: videoSrc, type: 'video/mp4' }],
+      src: [
+        {
+          src: 'https://fdfs.xmcdn.com/group84/M03/12/D8/wKg5JF7bfAKh0xyZAOTLKeRfpCM015.mp4',
+          type: 'video/mp4'
+        }
+      ],
 
       // What to do once video loads (initial frame)
       onLoad() {
