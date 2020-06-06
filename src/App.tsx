@@ -5,7 +5,7 @@ import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
-    <Router basename="/hack-ad-word">
+    <Router basename="/hack-ad-word/page">
       <Switch>
         <Route exact path="/">
           <Home />

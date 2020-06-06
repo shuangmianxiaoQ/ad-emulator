@@ -17,12 +17,10 @@
   }
 
   .ant-table-tbody > tr > td {
+    margin-bottom: 20px;
+    background: #303033 !important;
     border-bottom: none;
     font-size: 14px;
     color: #fff;
-  }
-
-  .ant-table-placeholder:hover {
-    background: transparent;
   }
 }
