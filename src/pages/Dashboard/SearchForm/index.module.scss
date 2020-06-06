@@ -93,3 +93,12 @@
   outline: none;
   cursor: pointer;
 }
+
+.iconArrow {
+  margin-left: 14px;
+  display: inline-block;
+  width: 24px;
+  height: 19px;
+  background: url('../../../assets/images/icon_next@2x.png') no-repeat;
+  background-size: 100% 100%;
+}

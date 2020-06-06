@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { PieChart, Pie, Tooltip, Cell, PieLabelRenderProps } from 'recharts';
 
 const data = [
@@ -12,11 +12,15 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const RADIAN = Math.PI / 180;
 
-const Chart = () => {
+type Props = {
+  data: any;
+};
+
+const Chart: FC<Props> = ({ data }) => {
+  const { before, after } = data;
   const renderCustomizedLabel = (props: PieLabelRenderProps) => {
     const { cx, cy, midAngle, innerRadius, outerRadius, percent } = props;
     const radius = Number(innerRadius) + (Number(outerRadius) - Number(innerRadius)) * 0.5;
-    console.log(midAngle, Math.cos(-Number(midAngle) * RADIAN));
     const x = Number(cx) + radius * Math.cos(-Number(midAngle) * RADIAN);
     const y = Number(cy) + radius * Math.sin(-Number(midAngle) * RADIAN);
 
@@ -30,16 +34,17 @@ const Chart = () => {
   return (
     <PieChart width={400} height={400}>
       <Pie
-        data={data}
+        data={before}
         cx={200}
         cy={200}
         labelLine={false}
         label={renderCustomizedLabel}
         outerRadius={80}
         fill="#8884d8"
-        dataKey="value"
+        nameKey="category"
+        dataKey="num"
       >
-        {data.map((entry, index) => (
+        {before.map((entry: any, index: number) => (
           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
         ))}
       </Pie>
