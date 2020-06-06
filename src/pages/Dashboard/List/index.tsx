@@ -1,31 +1,55 @@
 import React, { FC } from 'react';
-import { Table } from 'antd';
 
-import './index.scss';
 import styles from './index.module.scss';
-
-const { Column } = Table;
 
 type Props = {
   data: any;
 };
 
-const renderCtr = (text: any, record: any) => {
-  const ctr = record.click / record.show;
-  return ctr;
-};
-
 const List: FC<Props> = ({ data }) => {
   const { before, after } = data;
 
+  const renderAfter = (statDate: string, field: string) => {
+    const item = after.find((item: any) => statDate === item.statDate);
+    return item[field];
+  };
+
   return (
-    <Table id="table_list" rowKey="statDate" className={styles.list} dataSource={before} pagination={false}>
-      <Column title="时间" dataIndex="statDate" key="statDate" />
-      <Column title="展示量" dataIndex="show" key="show" />
-      <Column title="点击量" dataIndex="click" key="click" />
-      <Column title="费用" dataIndex="consume" key="consume" />
-      <Column title="点击率" dataIndex="ctr" key="ctr" render={renderCtr} />
-    </Table>
+    <div className={styles.list}>
+      <div className={styles.head}>
+        <div className={styles.item}>时间</div>
+        <div className={styles.item}>展示量</div>
+        <div className={styles.item}>点击量</div>
+        <div className={styles.item}>费用</div>
+        <div className={styles.item}>点击率</div>
+      </div>
+      <div className={styles.body}>
+        {before.map(({ statDate, show, click, consume }: any) => (
+          <div key={statDate} className={styles.row}>
+            <div className={styles.item}>
+              <div className={styles.beforeDate}>{statDate}</div>
+              <div className={styles.afterDate}>{renderAfter(statDate, 'statDate')}</div>
+            </div>
+            <div className={styles.item}>
+              <div>{show}</div>
+              <div>{renderAfter(statDate, 'show')}</div>
+            </div>
+            <div className={styles.item}>
+              <div>{click}</div>
+              <div>{renderAfter(statDate, 'click')}</div>
+            </div>
+            <div className={styles.item}>
+              <div>{consume}</div>
+              <div>{renderAfter(statDate, 'consume')}</div>
+            </div>
+            <div className={styles.item}>
+              <div>{(click / show).toFixed(2)}</div>
+              <div>{(renderAfter(statDate, 'click') / renderAfter(statDate, 'show')).toFixed(4)}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

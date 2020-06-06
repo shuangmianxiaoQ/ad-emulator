@@ -1,23 +1,16 @@
 import React, { FC } from 'react';
-import { PieChart, Pie, Tooltip, Cell, PieLabelRenderProps } from 'recharts';
+import { PieChart, Pie, Tooltip, Cell, PieLabelRenderProps, Legend } from 'recharts';
 
-const data = [
-  { name: 'Group A', value: 400 },
-  { name: 'Group B', value: 300 },
-  { name: 'Group C', value: 300 },
-  { name: 'Group D', value: 200 }
-];
+// import styles from './index.module.scss';
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
-
+const COLORS = ['#FF4750', '#FFCF37', '#824FFF', '#37FFC2', '#38C6F2'];
 const RADIAN = Math.PI / 180;
 
 type Props = {
-  data: any;
+  data: any[];
 };
 
 const Chart: FC<Props> = ({ data }) => {
-  const { before, after } = data;
   const renderCustomizedLabel = (props: PieLabelRenderProps) => {
     const { cx, cy, midAngle, innerRadius, outerRadius, percent } = props;
     const radius = Number(innerRadius) + (Number(outerRadius) - Number(innerRadius)) * 0.5;
@@ -32,23 +25,23 @@ const Chart: FC<Props> = ({ data }) => {
   };
 
   return (
-    <PieChart width={400} height={400}>
+    <PieChart width={541} height={317} margin={{ left: 70 }}>
       <Pie
-        data={before}
-        cx={200}
-        cy={200}
-        labelLine={false}
-        label={renderCustomizedLabel}
-        outerRadius={80}
-        fill="#8884d8"
+        data={data}
+        cx={240}
+        cy={160}
+        outerRadius={96}
+        innerRadius={52}
+        // label={renderCustomizedLabel}
         nameKey="category"
         dataKey="num"
       >
-        {before.map((entry: any, index: number) => (
+        {data.map((entry: any, index: number) => (
           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
         ))}
       </Pie>
       <Tooltip />
+      <Legend layout="vertical" align="left" verticalAlign="middle" iconType="circle" iconSize={6} />
     </PieChart>
   );
 };

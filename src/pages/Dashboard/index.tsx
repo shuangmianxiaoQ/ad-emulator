@@ -52,7 +52,12 @@ const Dashboard = () => {
           <List data={listData} />
         </div>
         <div className={styles.pieChart}>
-          <PieChart data={pieData} />
+          <div className={styles.beforePie}>
+            <PieChart data={pieData.before} />
+          </div>
+          <div className={styles.afterPie}>
+            <PieChart data={pieData.after} />
+          </div>
         </div>
       </div>
     </div>

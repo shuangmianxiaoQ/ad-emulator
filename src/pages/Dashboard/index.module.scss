@@ -120,8 +120,18 @@
 }
 
 .pieChart {
-  margin: 20px 30px 0 28px;
-  background-color: #2c2c2c;
-  border: 1px solid #3d3d3d;
-  border-radius: 20px;
+  display: flex;
+  margin: 20px 40px 0 28px;
+
+  .beforePie,
+  .afterPie {
+    width: 50%;
+    background-color: #2c2c2c;
+    border: 1px solid #3d3d3d;
+    border-radius: 20px;
+  }
+
+  .beforePie {
+    margin-right: 20px;
+  }
 }
