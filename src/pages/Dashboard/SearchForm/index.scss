@@ -1,0 +1,49 @@
+#search_form {
+  .ant-select {
+    font-size: 18px;
+    font-family: PingFangSC-Semibold;
+    color: #fff;
+  }
+
+  .ant-select-selector {
+    height: 52px;
+    background-color: #2c2c2c;
+    border: 1px solid #4f4e4e;
+    border-radius: 8px;
+  }
+
+  .ant-select-selection-item {
+    line-height: 50px;
+  }
+
+  .ant-input {
+    height: 52px;
+    background-color: #2c2c2c;
+    border: 1px solid #4f4e4e;
+    border-left: none;
+    font-size: 18px;
+    font-family: PingFangSC-Semibold;
+    color: #fff;
+
+    &::placeholder {
+      color: #b4b4b4;
+    }
+  }
+
+  .ant-input-group-addon {
+    background-color: #39383b;
+    color: rgba($color: #fff, $alpha: 0.7);
+    border-color: transparent;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .bid-select > .ant-select-selector {
+    border-radius: 8px 0 0 8px;
+  }
+}
+
+label {
+  font-family: PingFangSC-Semibold;
+  font-size: 22px;
+  color: #dbdbdb;
+}
