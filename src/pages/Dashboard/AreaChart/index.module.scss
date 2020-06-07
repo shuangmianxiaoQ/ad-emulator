@@ -21,3 +21,22 @@
     }
   }
 }
+
+.customLegend {
+  display: inline-flex;
+  margin-left: 28px;
+
+  .before,
+  .after {
+    display: flex;
+    align-items: center;
+    margin-right: 84px;
+
+    span {
+      margin-right: 8px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+#area_chart {
+  .recharts-tooltip-item-list {
+    display: flex;
+  }
+
+  .recharts-tooltip-item {
+    &:first-child {
+      padding-right: 25px;
+      border-right: 1px solid rgba($color: #fff, $alpha: 0.1);
+    }
+
+    &:last-child {
+      padding-left: 15px;
+    }
+
+    &-name {
+      font-size: 12px;
+      color: #fff;
+      line-height: 17px;
+    }
+
+    &-value {
+      font-size: 25px;
+      font-family: DINAlternate-Bold;
+      line-height: 29px;
+    }
+  }
+}
