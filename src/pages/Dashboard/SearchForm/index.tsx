@@ -80,7 +80,7 @@ const SearchForm: FC<Props> = ({ onSubmit }) => {
         </div>
 
         <button className={styles.btn} onClick={handleSubmit}>
-          开始模拟
+          <span>开始模拟</span>
           <span className={styles.iconArrow} />
         </button>
       </div>

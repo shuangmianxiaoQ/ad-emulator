@@ -85,8 +85,8 @@
 .btn {
   margin-top: 113px;
   margin-left: 100px;
-  width: 374px;
-  height: 82px;
+  width: 325px;
+  height: 72px;
   background-color: #6f38f6;
   box-shadow: inset 0px 8px 3px 0px #804dfd;
   border-radius: 41px;
@@ -96,13 +96,17 @@
   color: #fff;
   outline: none;
   cursor: pointer;
-}
 
-.iconArrow {
-  margin-left: 14px;
-  display: inline-block;
-  width: 24px;
-  height: 19px;
-  background: url('../../../assets/images/icon_next@2x.png') no-repeat;
-  background-size: 100% 100%;
+  span {
+    margin-left: 4px;
+  }
+
+  .iconArrow {
+    margin-left: 12px;
+    display: inline-block;
+    width: 22px;
+    height: 17px;
+    background: url('../../../assets/images/icon_next@2x.png') no-repeat;
+    background-size: 100% 100%;
+  }
 }
