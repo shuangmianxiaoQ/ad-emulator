@@ -10,8 +10,8 @@ const List: FC<Props> = ({ data }) => {
   const { before, after } = data;
 
   const renderAfter = (statDate: string, field: string) => {
-    const item = after.find((item: any) => statDate === item.statDate);
-    return item[field];
+    const afterItem = after.find((item: any) => statDate === item.statDate);
+    return afterItem[field];
   };
 
   return (
@@ -43,7 +43,7 @@ const List: FC<Props> = ({ data }) => {
               <div>{renderAfter(statDate, 'consume')}</div>
             </div>
             <div className={styles.item}>
-              <div>{(click / show).toFixed(2)}</div>
+              <div>{(click / show).toFixed(4)}</div>
               <div>{(renderAfter(statDate, 'click') / renderAfter(statDate, 'show')).toFixed(4)}</div>
             </div>
           </div>

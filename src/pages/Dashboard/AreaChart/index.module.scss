@@ -1,22 +1,22 @@
 .wrapper {
   position: relative;
-}
 
-.select {
-  position: absolute;
-  top: 40px;
-  right: 50px;
-  z-index: 100;
-  width: 218px;
-  font-size: 16px !important;
-  font-family: PingFangSC-Regular !important;
+  .select {
+    position: absolute;
+    top: 40px;
+    right: 50px;
+    z-index: 100;
+    width: 218px;
+    font-size: 16px;
+    font-family: PingFangSC-Regular;
 
-  :global {
-    .ant-select-selector {
-      height: 48px !important;
+    :global {
+      .ant-select-selector {
+        height: 48px !important;
 
-      .ant-select-selection-item {
-        line-height: 45px !important;
+        .ant-select-selection-item {
+          line-height: 45px !important;
+        }
       }
     }
   }

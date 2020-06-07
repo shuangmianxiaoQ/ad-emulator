@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react';
-import { AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, Area, Legend, Line } from 'recharts';
+import { Select } from 'antd';
+import { AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, Area, Legend } from 'recharts';
 
 import styles from './index.module.scss';
-import { Select } from 'antd';
 
 const { Option } = Select;
 
@@ -10,31 +10,44 @@ type Props = {
   data: any;
 };
 
-const processData = (data: any) => {
+const processData = (data: any, type: string) => {
   const { before, after } = data;
+  let result = [];
 
-  const result = before?.map((item: any) => {
-    return {
-      statDate: item.statDate,
-      beforeShow: item.show,
-      afterShow: after?.find(({ statDate }: any) => statDate === item.statDate)?.show
-    };
-  });
+  if (type === 'ctr') {
+    result = before.map((item: any) => {
+      const afterItem = after.find(({ statDate }: any) => statDate === item.statDate);
+      return {
+        statDate: item.statDate,
+        before: (item.click / item.show).toFixed(4),
+        after: (afterItem.click / afterItem.show).toFixed(4)
+      };
+    });
+  } else {
+    result = before.map((item: any) => {
+      const afterItem = after.find(({ statDate }: any) => statDate === item.statDate);
+      return {
+        statDate: item.statDate,
+        before: item[type],
+        after: afterItem[type]
+      };
+    });
+  }
 
   return result;
 };
 
 const Chart: FC<Props> = ({ data }) => {
-  const [type, setType] = useState('show');
-  const chartData = processData(data);
+  const [type, setType] = useState('click');
+  const chartData = processData(data, type);
 
   const handleChange = (value: string) => {
     setType(value);
   };
 
   return (
-    <div className={styles.wrapper}>
-      <Select className={styles.select} value={type} onChange={handleChange}>
+    <div id="area_chart" className={styles.wrapper}>
+      <Select className={styles.select} value={type} onChange={handleChange} suffixIcon={null}>
         <Option value="show">展示量</Option>
         <Option value="click">点击量</Option>
         <Option value="consume">费用</Option>
@@ -57,8 +70,8 @@ const Chart: FC<Props> = ({ data }) => {
         <CartesianGrid vertical={false} horizontal={false} strokeDasharray="3 3" />
         <Tooltip />
         <Legend align="left" verticalAlign="top" iconType="circle" height={50} />
-        <Area type="monotone" dataKey="beforeShow" stroke="#7c4bff" fillOpacity={1} fill="url(#colorBefore)" />
-        <Area type="monotone" dataKey="afterShow" stroke="#f9ca35" fillOpacity={1} fill="url(#colorafter)" />
+        <Area type="monotone" dataKey="before" stroke="#7c4bff" fillOpacity={1} fill="url(#colorBefore)" />
+        <Area type="monotone" dataKey="after" stroke="#f9ca35" fillOpacity={1} fill="url(#colorafter)" />
       </AreaChart>
     </div>
   );

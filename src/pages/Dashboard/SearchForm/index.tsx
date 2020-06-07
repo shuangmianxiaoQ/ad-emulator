@@ -30,7 +30,7 @@ const SearchForm: FC<Props> = ({ onSubmit }) => {
   };
 
   return (
-    <div className={styles.form}>
+    <div id="search_form" className={styles.form}>
       <div className={styles.plan}>
         <div className={styles.label}>
           <div className={styles.line} />
@@ -75,7 +75,7 @@ const SearchForm: FC<Props> = ({ onSubmit }) => {
           />
         </div>
 
-        <button className={styles.btn} onClick={() => onSubmit(price)}>
+        <button className={styles.btn} onClick={() => price && onSubmit(price)}>
           开始模拟
           <span className={styles.iconArrow} />
         </button>
