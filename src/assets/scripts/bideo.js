@@ -1,3 +1,5 @@
+/* eslint-disable no-redeclare */
+
 /**
  * Full Background Video
  *
