@@ -1,14 +1,31 @@
 import React, { FC } from 'react';
-import { PieChart, Pie, Tooltip, Cell, PieLabelRenderProps, Legend } from 'recharts';
+import { PieChart, Pie, Tooltip, Cell, PieLabelRenderProps, Legend, LegendProps } from 'recharts';
+import { orderBy } from 'src/utils';
+
+import styles from './index.module.scss';
 
 const COLORS = ['#FF4750', '#FFCF37', '#824FFF', '#37FFC2', '#38C6F2'];
 const RADIAN = Math.PI / 180;
 
 type Props = {
+  type: 'before' | 'after';
   data: any[];
 };
 
-const Chart: FC<Props> = ({ data }) => {
+const processData = (data: any[]) => {
+  const sortData = orderBy(data, ['num'], ['desc']);
+  // 除Top4以外的`Num`总和
+  const restNum = data.reduce((acc, item, index) => {
+    const num = index > 4 ? item.num : 0;
+    return (acc += num);
+  }, 0);
+
+  return sortData.length > 5 ? [...sortData.slice(0, 4), { category: '其他', num: restNum }] : sortData;
+};
+
+const Chart: FC<Props> = ({ type, data }) => {
+  const pieData = processData(data);
+
   const renderCustomizedLabel = (props: PieLabelRenderProps) => {
     const { cx, cy, midAngle, innerRadius, outerRadius, percent } = props;
     const radius = Number(innerRadius) + (Number(outerRadius) - Number(innerRadius)) * 0.5;
@@ -22,10 +39,24 @@ const Chart: FC<Props> = ({ data }) => {
     );
   };
 
+  const renderLegend = ({ payload }: LegendProps) => {
+    return (
+      <div className={styles.customLegend}>
+        <div className={styles.title}>{type === 'before' ? '原始人群画像' : '调整后人群画像'}</div>
+        {payload?.map(({ value, color }) => (
+          <div key={value} className={styles.item}>
+            <span style={{ backgroundColor: color }} />
+            {value}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
-    <PieChart width={541} height={317} margin={{ left: 70 }}>
+    <PieChart className={styles.pieChart} width={541} height={317} margin={{ left: 70 }}>
       <Pie
-        data={data}
+        data={pieData}
         cx={240}
         cy={160}
         outerRadius={96}
@@ -35,12 +66,12 @@ const Chart: FC<Props> = ({ data }) => {
         nameKey="category"
         dataKey="num"
       >
-        {data.map((entry: any, index: number) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+        {pieData.map((item: any, index: number) => (
+          <Cell key={item.category} fill={COLORS[index % COLORS.length]} stroke={COLORS[index % COLORS.length]} />
         ))}
       </Pie>
       <Tooltip />
-      <Legend layout="vertical" align="left" verticalAlign="middle" iconType="circle" iconSize={6} />
+      <Legend layout="vertical" align="left" verticalAlign="middle" content={renderLegend} />
     </PieChart>
   );
 };

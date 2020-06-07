@@ -12,7 +12,7 @@ type Props = {
 };
 
 const formatterDate = (date: string) => {
-  const [year, month, day] = date.split('-');
+  const [, month, day] = date.split('-');
   return `${month}/${day}`;
 };
 
@@ -44,7 +44,7 @@ const processData = (data: any, type: string) => {
 };
 
 const Chart: FC<Props> = ({ data }) => {
-  const [type, setType] = useState('click');
+  const [type, setType] = useState('show');
   const chartData = processData(data, type);
 
   const renderLegend = ({ payload }: LegendProps) => {

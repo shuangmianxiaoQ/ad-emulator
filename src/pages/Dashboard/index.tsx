@@ -77,10 +77,10 @@ const Dashboard = () => {
               </div>
               <div className={styles.pieChart}>
                 <div className={styles.beforePie}>
-                  <PieChart data={pieData.before} />
+                  <PieChart type="before" data={pieData.before} />
                 </div>
                 <div className={styles.afterPie}>
-                  <PieChart data={pieData.after} />
+                  <PieChart type="after" data={pieData.after} />
                 </div>
               </div>
             </>

@@ -1,0 +1,26 @@
+.customLegend {
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    margin-bottom: 11px;
+    font-size: 16px;
+    font-family: PingFangSC-Medium;
+    line-height: 26px;
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 26px;
+
+    span {
+      margin-right: 10px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+  }
+}

@@ -10,7 +10,7 @@ type Props = {
 };
 
 const SearchForm: FC<Props> = ({ onSubmit }) => {
-  const [price, setPrice] = useState('1');
+  const [price, setPrice] = useState('1.2');
   const [bidType, setBidType] = useState(1);
 
   const handleChangeBidType = (value: number) => {
@@ -18,7 +18,7 @@ const SearchForm: FC<Props> = ({ onSubmit }) => {
 
     switch (value) {
       case 1:
-        setPrice('1');
+        setPrice('1.2');
         break;
       case 2:
         setPrice('10');
@@ -27,6 +27,10 @@ const SearchForm: FC<Props> = ({ onSubmit }) => {
         setPrice('-10');
         break;
     }
+  };
+
+  const handleSubmit = () => {
+    price && price === '1.2' ? onSubmit('1') : onSubmit(price);
   };
 
   return (
@@ -75,7 +79,7 @@ const SearchForm: FC<Props> = ({ onSubmit }) => {
           />
         </div>
 
-        <button className={styles.btn} onClick={() => price && onSubmit(price)}>
+        <button className={styles.btn} onClick={handleSubmit}>
           开始模拟
           <span className={styles.iconArrow} />
         </button>
