@@ -71,6 +71,10 @@
 
   .select {
     width: 351px;
+
+    :global(.ant-select-selector) {
+      border-radius: 8px 0 0 8px !important;
+    }
   }
 
   .input {

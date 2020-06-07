@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
 import { PieChart, Pie, Tooltip, Cell, PieLabelRenderProps, Legend } from 'recharts';
 
-// import styles from './index.module.scss';
-
 const COLORS = ['#FF4750', '#FFCF37', '#824FFF', '#37FFC2', '#38C6F2'];
 const RADIAN = Math.PI / 180;
 
@@ -32,7 +30,8 @@ const Chart: FC<Props> = ({ data }) => {
         cy={160}
         outerRadius={96}
         innerRadius={52}
-        // label={renderCustomizedLabel}
+        labelLine={false}
+        label={renderCustomizedLabel}
         nameKey="category"
         dataKey="num"
       >

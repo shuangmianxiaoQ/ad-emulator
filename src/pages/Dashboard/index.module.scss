@@ -41,30 +41,30 @@
   display: inline-flex;
   align-self: center;
   width: 50px;
-  height: 50px;
+  height: 54px;
 }
 
 .iconHome {
-  margin-top: 99px;
+  margin-top: 106px;
   background: url('../../assets/images/icon_home@2x.png') no-repeat;
   background-size: 100% 100%;
 }
 
 .iconChart {
-  margin-top: 84px;
+  margin-top: 90px;
   background: url('../../assets/images/icon_chart@2x.png') no-repeat;
   background-size: 100% 100%;
 }
 
 .iconList {
-  margin-top: 75px;
+  margin-top: 80px;
   background: url('../../assets/images/icon_list@2x.png') no-repeat;
   background-size: 100% 100%;
 }
 
 .avtiveMenu {
   display: flex;
-  margin-top: 80px;
+  margin-top: 73px;
 
   .line {
     width: 6px;
@@ -133,5 +133,36 @@
 
   .beforePie {
     margin-right: 20px;
+  }
+}
+
+.loading {
+  margin: 179px 0 179px 576px;
+
+  .icon {
+    margin-left: 11px;
+    margin-bottom: 23px;
+    font-size: 60px;
+    color: #7c4bff;
+  }
+
+  .tip {
+    font-size: 16px;
+    color: #fff;
+  }
+}
+
+.empty {
+  margin: 154px 0 154px 521px;
+
+  img {
+    width: 139px;
+    height: 139px;
+  }
+
+  .tip {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #58506d;
   }
 }

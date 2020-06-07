@@ -1,13 +1,16 @@
-import React, { FC } from 'react';
-import { AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, Area, Legend } from 'recharts';
+import React, { FC, useState } from 'react';
+import { AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, Area, Legend, Line } from 'recharts';
 
 import styles from './index.module.scss';
+import { Select } from 'antd';
+
+const { Option } = Select;
 
 type Props = {
   data: any;
 };
 
-const handleData = (data: any) => {
+const processData = (data: any) => {
   const { before, after } = data;
 
   const result = before?.map((item: any) => {
@@ -22,17 +25,29 @@ const handleData = (data: any) => {
 };
 
 const Chart: FC<Props> = ({ data }) => {
-  const chartData = handleData(data);
+  const [type, setType] = useState('show');
+  const chartData = processData(data);
+
+  const handleChange = (value: string) => {
+    setType(value);
+  };
 
   return (
     <div className={styles.wrapper}>
-      <AreaChart width={1160} height={380} data={chartData} margin={{ right: 30 }}>
+      <Select className={styles.select} value={type} onChange={handleChange}>
+        <Option value="show">展示量</Option>
+        <Option value="click">点击量</Option>
+        <Option value="consume">费用</Option>
+        <Option value="ctr">点击率</Option>
+      </Select>
+
+      <AreaChart width={1252} height={461} data={chartData} margin={{ left: 70, top: 50, right: 60, bottom: 40 }}>
         <defs>
-          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id="colorBefore" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor="#7c4bff" stopOpacity={0.8} />
             <stop offset="95%" stopColor="#7c4bff" stopOpacity={0} />
           </linearGradient>
-          <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id="colorafter" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor="#f9ca35" stopOpacity={0.8} />
             <stop offset="95%" stopColor="#f9ca35" stopOpacity={0} />
           </linearGradient>
@@ -42,8 +57,8 @@ const Chart: FC<Props> = ({ data }) => {
         <CartesianGrid vertical={false} horizontal={false} strokeDasharray="3 3" />
         <Tooltip />
         <Legend align="left" verticalAlign="top" iconType="circle" height={50} />
-        <Area type="monotone" dataKey="beforeShow" stroke="#7c4bff" fillOpacity={1} fill="url(#colorUv)" />
-        <Area type="monotone" dataKey="afterShow" stroke="#f9ca35" fillOpacity={1} fill="url(#colorPv)" />
+        <Area type="monotone" dataKey="beforeShow" stroke="#7c4bff" fillOpacity={1} fill="url(#colorBefore)" />
+        <Area type="monotone" dataKey="afterShow" stroke="#f9ca35" fillOpacity={1} fill="url(#colorafter)" />
       </AreaChart>
     </div>
   );

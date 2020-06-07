@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { Select, Input } from 'antd';
 
 import styles from './index.module.scss';
-import './index.scss';
 
 const { Option } = Select;
 
-const SearchForm = () => {
+type Props = {
+  onSubmit: (value: string) => void;
+};
+
+const SearchForm: FC<Props> = ({ onSubmit }) => {
   const [price, setPrice] = useState('1');
   const [bidType, setBidType] = useState(1);
 
@@ -27,7 +30,7 @@ const SearchForm = () => {
   };
 
   return (
-    <div id="search_form" className={styles.form}>
+    <div className={styles.form}>
       <div className={styles.plan}>
         <div className={styles.label}>
           <div className={styles.line} />
@@ -72,7 +75,7 @@ const SearchForm = () => {
           />
         </div>
 
-        <button className={styles.btn}>
+        <button className={styles.btn} onClick={() => onSubmit(price)}>
           开始模拟
           <span className={styles.iconArrow} />
         </button>

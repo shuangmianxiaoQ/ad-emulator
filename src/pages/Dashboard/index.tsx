@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { LoadingOutlined } from '@ant-design/icons';
 import SearchForm from './SearchForm';
 import AreaChart from './AreaChart';
 import PieChart from './PieChart';
@@ -6,20 +7,39 @@ import List from './List';
 import API from 'src/services';
 
 import avatar from '../../assets/images/avatar.png';
+import empty from '../../assets/images/empty@2x.png';
 import styles from './index.module.scss';
 
 const Dashboard = () => {
+  const [loading1, setLoading1] = useState(false);
+  const [loading2, setLoading2] = useState(false);
   const [listData, setList] = useState({ before: [], after: [] });
   const [pieData, setPieData] = useState({ before: [], after: [] });
 
-  useEffect(() => {
-    API.getListData({ price: 1 }).then(res => {
+  const fetchingList = (price: number) => {
+    setLoading1(true);
+    API.getListData({ price }).then(res => {
+      setLoading1(false);
       setList(res);
     });
+  };
 
-    API.getPieData({ price: 1 }).then(res => {
+  const fetchingPieData = (price: number) => {
+    setLoading2(true);
+    API.getPieData({ price }).then(res => {
+      setLoading2(false);
       setPieData(res);
     });
+  };
+
+  const handleSubmit = (value: string) => {
+    fetchingList(Number(value));
+    fetchingPieData(Number(value));
+  };
+
+  useEffect(() => {
+    fetchingList(1);
+    fetchingPieData(1);
   }, []);
 
   return (
@@ -31,11 +51,11 @@ const Dashboard = () => {
         </div>
         <div className={`${styles.menu} ${styles.iconHome}`} />
         <div className={`${styles.menu} ${styles.iconChart}`} />
-        <div className={`${styles.menu} ${styles.iconList}`} />
         <div className={styles.avtiveMenu}>
           <div className={styles.line} />
           <div className={`${styles.menu} ${styles.iconRise}`} />
         </div>
+        <div className={`${styles.menu} ${styles.iconList}`} />
       </div>
 
       <div className={styles.wrapper}>
@@ -43,22 +63,39 @@ const Dashboard = () => {
           <span className={styles.iconMessage} />
         </div>
         <div className={styles.searchForm}>
-          <SearchForm />
+          <SearchForm onSubmit={handleSubmit} />
         </div>
-        <div className={styles.areaChart}>
-          <AreaChart data={listData} />
-        </div>
-        <div className={styles.list}>
-          <List data={listData} />
-        </div>
-        <div className={styles.pieChart}>
-          <div className={styles.beforePie}>
-            <PieChart data={pieData.before} />
+
+        {!loading1 && !loading2 ? (
+          listData.before.length > 0 ? (
+            <>
+              <div className={styles.areaChart}>
+                <AreaChart data={listData} />
+              </div>
+              <div className={styles.list}>
+                <List data={listData} />
+              </div>
+              <div className={styles.pieChart}>
+                <div className={styles.beforePie}>
+                  <PieChart data={pieData.before} />
+                </div>
+                <div className={styles.afterPie}>
+                  <PieChart data={pieData.after} />
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className={styles.empty}>
+              <img src={empty} alt="" />
+              <div className={styles.tip}>没有找到相关数据</div>
+            </div>
+          )
+        ) : (
+          <div className={styles.loading}>
+            <LoadingOutlined className={styles.icon} spin />
+            <div className={styles.tip}>努力计算中…</div>
           </div>
-          <div className={styles.afterPie}>
-            <PieChart data={pieData.after} />
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

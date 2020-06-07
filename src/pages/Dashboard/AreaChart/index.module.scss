@@ -1,3 +1,23 @@
 .wrapper {
-  padding: 40px 50px 40px 70px;
+  position: relative;
+}
+
+.select {
+  position: absolute;
+  top: 40px;
+  right: 50px;
+  z-index: 100;
+  width: 218px;
+  font-size: 16px !important;
+  font-family: PingFangSC-Regular !important;
+
+  :global {
+    .ant-select-selector {
+      height: 48px !important;
+
+      .ant-select-selection-item {
+        line-height: 45px !important;
+      }
+    }
+  }
 }
