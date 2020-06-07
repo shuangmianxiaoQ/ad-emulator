@@ -1,9 +1,16 @@
+$scale: 1280 / 1440;
+
+.layer {
+  background-color: #232323;
+}
+
 .container {
   display: flex;
-  padding-bottom: 50px;
   min-height: 100vh;
   background-color: #232323;
   color: #fff;
+  transform: scale($scale);
+  margin-top: -117px;
 }
 
 .sider {
