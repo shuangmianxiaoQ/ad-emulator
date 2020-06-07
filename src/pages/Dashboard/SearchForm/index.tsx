@@ -42,7 +42,7 @@ const SearchForm: FC<Props> = ({ onSubmit }) => {
         </div>
 
         <Select className={styles.select} suffixIcon={null} defaultValue={1}>
-          <Option value={1}>成语故事，听听听</Option>
+          <Option value={1}>都业华丨剖析股市热点投资机会</Option>
         </Select>
 
         <div className={styles.item}>

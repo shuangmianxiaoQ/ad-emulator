@@ -1,3 +1,11 @@
+.pieChart {
+  position: relative;
+
+  :global(.recharts-tooltip-item) {
+    color: #fff !important;
+  }
+}
+
 .customLegend {
   display: flex;
   flex-direction: column;
@@ -22,5 +30,28 @@
       height: 6px;
       border-radius: 50%;
     }
+  }
+}
+
+.total {
+  position: absolute;
+  left: 356px;
+  top: 146px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+
+  .num {
+    font-size: 20px;
+    font-family: PingFangSC-Medium;
+    line-height: 26px;
+  }
+
+  .title {
+    font-size: 12px;
+    line-height: 22px;
+    color: rgba($color: #fff, $alpha: 0.8);
   }
 }

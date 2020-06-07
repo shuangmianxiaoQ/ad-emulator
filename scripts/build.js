@@ -11,6 +11,7 @@ const projectName = require('../package.json').name;
 
 if (BUILD_ENV === 'test') {
   process.env.PUBLIC_URL = `//static2.test.ximalaya.com/yx/${projectName}/last/dist/`;
+  process.env.GENERATE_SOURCEMAP = false;
 } else if (BUILD_ENV === 'uat') {
   process.env.PUBLIC_URL = `//s1.uat.xmcdn.com/yx/${projectName}/last/dist/`;
 } else if (BUILD_ENV === 'prod') {
