@@ -6,7 +6,7 @@ import styles from './index.module.scss';
 const { Option } = Select;
 
 type Props = {
-  onSubmit: (value: string) => void;
+  onSubmit: (value: number) => void;
 };
 
 const SearchForm: FC<Props> = ({ onSubmit }) => {
@@ -30,7 +30,7 @@ const SearchForm: FC<Props> = ({ onSubmit }) => {
   };
 
   const handleSubmit = () => {
-    price && price === '1.2' ? onSubmit('1') : onSubmit(price);
+    price && price === '1.2' ? onSubmit(1) : onSubmit(Number(price));
   };
 
   return (

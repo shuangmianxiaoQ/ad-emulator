@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { PieChart, Pie, Tooltip, Cell, PieLabelRenderProps, Legend, LegendProps } from 'recharts';
-import { orderBy } from 'src/utils';
+import { processPieData } from 'src/utils';
+import { Category } from 'src/models';
 
 import styles from './index.module.scss';
 
@@ -9,22 +10,11 @@ const RADIAN = Math.PI / 180;
 
 type Props = {
   type: 'before' | 'after';
-  data: any[];
-};
-
-const processData = (data: any[]) => {
-  const sortData = orderBy(data, ['num'], ['desc']);
-  // 除Top4以外的`Num`总和
-  const restNum = data.reduce((acc, item, index) => {
-    const num = index > 4 ? item.num : 0;
-    return (acc += num);
-  }, 0);
-
-  return sortData.length > 5 ? [...sortData.slice(0, 4), { category: '其他', num: restNum }] : sortData;
+  data: Category[];
 };
 
 const Chart: FC<Props> = ({ type, data }) => {
-  const pieData = processData(data);
+  const pieData = processPieData(data);
   const total = data.reduce((acc, cur) => (acc += cur.num), 0);
 
   const renderCustomizedLabel = (props: PieLabelRenderProps) => {
@@ -80,8 +70,8 @@ const Chart: FC<Props> = ({ type, data }) => {
           nameKey="category"
           dataKey="num"
         >
-          {pieData.map((item: any, index: number) => (
-            <Cell key={item.category} fill={COLORS[index % COLORS.length]} stroke={COLORS[index % COLORS.length]} />
+          {pieData.map(({ category }, index) => (
+            <Cell key={category} fill={COLORS[index % COLORS.length]} stroke={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
         <Tooltip

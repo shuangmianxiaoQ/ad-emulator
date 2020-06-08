@@ -1,6 +1,8 @@
 import React, { FC, useState } from 'react';
 import { Select } from 'antd';
-import { AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, Area, Legend, LegendProps } from 'recharts';
+import { AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, Area, Legend, LegendProps, TooltipFormatter } from 'recharts';
+import { ListData, Dimension } from 'src/models';
+import { processChartData } from 'src/utils';
 
 import styles from './index.module.scss';
 import './index.scss';
@@ -8,44 +10,12 @@ import './index.scss';
 const { Option } = Select;
 
 type Props = {
-  data: any;
-};
-
-const formatterDate = (date: string) => {
-  const [, month, day] = date.split('-');
-  return `${month}/${day}`;
-};
-
-const processData = (data: any, type: string) => {
-  const { before, after } = data;
-  let result = [];
-
-  if (type === 'ctr') {
-    result = before.map((item: any) => {
-      const afterItem = after.find(({ statDate }: any) => statDate === item.statDate);
-      return {
-        statDate: formatterDate(item.statDate),
-        before: (item.click / item.show).toFixed(4),
-        after: (afterItem.click / afterItem.show).toFixed(4)
-      };
-    });
-  } else {
-    result = before.map((item: any) => {
-      const afterItem = after.find(({ statDate }: any) => statDate === item.statDate);
-      return {
-        statDate: formatterDate(item.statDate),
-        before: item[type],
-        after: afterItem[type]
-      };
-    });
-  }
-
-  return result;
+  data: ListData;
 };
 
 const Chart: FC<Props> = ({ data }) => {
-  const [type, setType] = useState('show');
-  const chartData = processData(data, type);
+  const [type, setType] = useState<Dimension>('show');
+  const chartData = processChartData(data, type);
 
   const renderLegend = ({ payload }: LegendProps) => {
     return (
@@ -60,7 +30,7 @@ const Chart: FC<Props> = ({ data }) => {
     );
   };
 
-  const formatterTooltip = (value: any, name: any) => {
+  const formatterTooltip: TooltipFormatter = (value, name) => {
     const formatterName = name === 'before' ? '原始' : '调整后';
     return [value, formatterName];
   };

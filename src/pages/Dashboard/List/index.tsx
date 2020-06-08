@@ -1,20 +1,18 @@
 import React, { FC } from 'react';
+import { ListData, Plan } from 'src/models';
+import { toPercentage } from 'src/utils';
 
 import styles from './index.module.scss';
 
 type Props = {
-  data: any;
-};
-
-const toPercentage = (num: number) => {
-  return (num * 100).toFixed(4) + '%';
+  data: ListData;
 };
 
 const List: FC<Props> = ({ data }) => {
   const { before, after } = data;
 
-  const renderAfter = (statDate: string, field: string) => {
-    const afterItem = after.find((item: any) => statDate === item.statDate);
+  const renderAfter = (statDate: string, field: keyof Plan) => {
+    const afterItem = after.find(item => statDate === item.statDate)!;
     return afterItem[field];
   };
 
@@ -29,7 +27,7 @@ const List: FC<Props> = ({ data }) => {
         <div className={styles.item}>点击率</div>
       </div>
       <div className={styles.body}>
-        {before.map(({ statDate, price, show, click, consume }: any) => (
+        {before.map(({ statDate, price, show, click, consume }) => (
           <div key={statDate} className={styles.row}>
             <div className={styles.item}>
               <div className={styles.beforeDate}>{statDate}</div>
@@ -40,12 +38,12 @@ const List: FC<Props> = ({ data }) => {
               <div>{renderAfter(statDate, 'price')}</div>
             </div>
             <div className={styles.item}>
-              <div>{show?.toLocaleString()}</div>
-              <div>{renderAfter(statDate, 'show')?.toLocaleString()}</div>
+              <div>{show.toLocaleString()}</div>
+              <div>{renderAfter(statDate, 'show').toLocaleString()}</div>
             </div>
             <div className={styles.item}>
-              <div>{click?.toLocaleString()}</div>
-              <div>{renderAfter(statDate, 'click')?.toLocaleString()}</div>
+              <div>{click.toLocaleString()}</div>
+              <div>{renderAfter(statDate, 'click').toLocaleString()}</div>
             </div>
             <div className={styles.item}>
               <div>{consume}</div>
@@ -53,7 +51,9 @@ const List: FC<Props> = ({ data }) => {
             </div>
             <div className={styles.item}>
               <div>{toPercentage(click / show)}</div>
-              <div>{toPercentage(renderAfter(statDate, 'click') / renderAfter(statDate, 'show'))}</div>
+              <div>
+                {toPercentage((renderAfter(statDate, 'click') as number) / (renderAfter(statDate, 'show') as number))}
+              </div>
             </div>
           </div>
         ))}

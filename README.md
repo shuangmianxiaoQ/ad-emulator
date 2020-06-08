@@ -1,8 +1,6 @@
-## 黑客马拉松-广告效果模拟器
+## 广告效果模拟器
 
-> [gitlab 地址](http://gitlab.ximalaya.com/jianwu/hack-ad-emulator)
-
-> [云效地址](http://yunxiao.xmly.work/titan/appcenter/5175/overview)
+![效果](https://user-images.githubusercontent.com/22791257/83997379-d7da1580-a990-11ea-8ad0-5c0d7a1b0a62.png)
 
 ## 创意
 

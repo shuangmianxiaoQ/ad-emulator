@@ -1,46 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { LoadingOutlined } from '@ant-design/icons';
 import SearchForm from './SearchForm';
 import AreaChart from './AreaChart';
 import PieChart from './PieChart';
 import List from './List';
-import API from 'src/services';
+import { useListData, usePieData } from './hooks';
 
 import avatar from '../../assets/images/avatar.png';
 import empty from '../../assets/images/empty@2x.png';
 import styles from './index.module.scss';
 
 const Dashboard = () => {
-  const [loading1, setLoading1] = useState(false);
-  const [loading2, setLoading2] = useState(false);
-  const [listData, setList] = useState({ before: [], after: [] });
-  const [pieData, setPieData] = useState({ before: [], after: [] });
+  const { loading: loading1, listData, fetchingList } = useListData();
+  const { loading: loading2, pieData, fetchingPieData } = usePieData();
 
-  const fetchingList = (price: number) => {
-    setLoading1(true);
-    API.getListData({ price }).then(res => {
-      setLoading1(false);
-      setList(res);
-    });
+  const handleSubmit = (value: number) => {
+    fetchingList(value);
+    fetchingPieData(value);
   };
-
-  const fetchingPieData = (price: number) => {
-    setLoading2(true);
-    API.getPieData({ price }).then(res => {
-      setLoading2(false);
-      setPieData(res);
-    });
-  };
-
-  const handleSubmit = (value: string) => {
-    fetchingList(Number(value));
-    fetchingPieData(Number(value));
-  };
-
-  useEffect(() => {
-    fetchingList(1);
-    fetchingPieData(1);
-  }, []);
 
   return (
     <div className={styles.container}>
