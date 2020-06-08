@@ -32,26 +32,3 @@
     }
   }
 }
-
-.total {
-  position: absolute;
-  left: 356px;
-  top: 146px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 44px;
-  height: 44px;
-
-  .num {
-    font-size: 24px;
-    font-family: DINAlternate;
-    line-height: 26px;
-  }
-
-  .title {
-    font-size: 12px;
-    line-height: 22px;
-    color: rgba($color: #fff, $alpha: 0.8);
-  }
-}

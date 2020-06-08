@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { PieChart, Pie, Tooltip, Cell, PieLabelRenderProps, Legend, LegendProps } from 'recharts';
+import { PieChart, Pie, Tooltip, Cell, PieLabelRenderProps, Legend, LegendProps, Label, PolarViewBox } from 'recharts';
 import { processPieData } from 'src/utils';
 import { Category } from 'src/models';
 
@@ -11,6 +11,24 @@ const RADIAN = Math.PI / 180;
 type Props = {
   type: 'before' | 'after';
   data: Category[];
+};
+
+type CustomLabelProps = {
+  viewBox?: PolarViewBox;
+  value: string;
+};
+
+const CustomLabel: FC<CustomLabelProps> = ({ viewBox, value }) => {
+  return (
+    <text x={viewBox?.cx} y={viewBox?.cy} fill="#fff" textAnchor="middle">
+      <tspan x={viewBox?.cx} dy="0.3em" fontSize={24} fontFamily="DINAlternate">
+        {value}
+      </tspan>
+      <tspan x={viewBox?.cx} dy="1.6em" fontSize={12} color="rgba(255, 255, 255, 0.8)">
+        Total
+      </tspan>
+    </text>
+  );
 };
 
 const Chart: FC<Props> = ({ type, data }) => {
@@ -53,11 +71,6 @@ const Chart: FC<Props> = ({ type, data }) => {
 
   return (
     <div className={styles.pieChart}>
-      <div className={styles.total}>
-        <div className={styles.num}>{total.toLocaleString()}</div>
-        <div className={styles.title}>Total</div>
-      </div>
-
       <PieChart width={541} height={317} margin={{ left: 70 }}>
         <Pie
           data={pieData}
@@ -73,6 +86,7 @@ const Chart: FC<Props> = ({ type, data }) => {
           {pieData.map(({ category }, index) => (
             <Cell key={category} fill={COLORS[index % COLORS.length]} stroke={COLORS[index % COLORS.length]} />
           ))}
+          <Label width={30} position="center" content={<CustomLabel value={total.toLocaleString()} />} />
         </Pie>
         <Tooltip
           contentStyle={{
