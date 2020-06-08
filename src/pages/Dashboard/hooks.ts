@@ -11,8 +11,10 @@ export const useListData = () => {
     setLoading(true);
     API.getListData({ price }).then(res => {
       if (res) {
-        setLoading(false);
-        setList(res);
+        setTimeout(() => {
+          setLoading(false);
+          setList(res);
+        }, 500);
       } else {
         message.error('请求数据错误');
       }
@@ -34,8 +36,10 @@ export const usePieData = () => {
     setLoading(true);
     API.getPieData({ price }).then(res => {
       if (res) {
-        setLoading(false);
-        setPieData(res);
+        setTimeout(() => {
+          setLoading(false);
+          setPieData(res);
+        }, 500);
       } else {
         message.error('请求数据错误');
       }
